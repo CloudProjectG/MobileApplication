@@ -4,4 +4,327 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity"/>
+    tools:context=".MainActivity">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:weightSum="300"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="100"
+            android:weightSum="100"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="60"
+                android:weightSum="100"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="40"
+                    android:weightSum="100"
+                    android:orientation="horizontal">
+
+                    <Space
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="35"
+                        tools:ignore="NestedWeights" />
+
+                    <ImageButton
+                        android:id="@+id/imageButton"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:contentDescription="Logo"
+                        app:srcCompat="@drawable/temp_button_75"/>
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="35">
+
+                        <ImageButton
+                            android:id="@+id/imageButton19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:contentDescription="Menu"
+                            app:srcCompat="@drawable/temp_button_50"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintVertical_bias="0.5"
+                            app:layout_constraintHorizontal_bias="0.5"
+                            />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="60"
+                    android:weightSum="100"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="60"
+                        android:weightSum="100"
+                        android:orientation="horizontal">
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                        <EditText
+                            android:id="@+id/editTextText2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="60"
+                            android:layout_marginTop="16dp"
+                            android:ems="10"
+                            android:inputType="text"
+                            android:minHeight="48dp"
+                            android:background="@drawable/edit_text_search"
+                            android:padding="8dp"
+                            android:text="Text"
+                            android:textColor="#AAAAAA"
+                            android:autofillHints="" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="20" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="40"
+                android:weightSum="100"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <TableLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="80"
+                    android:background="@color/black"
+                    android:weightSum="110">
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:weightSum="40">
+
+                        <ImageButton
+                            android:id="@+id/imageButton2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="한식"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="양식"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="중식"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="일식"
+                            app:srcCompat="@drawable/temp_button_50"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:weightSum="40">
+
+                        <ImageButton
+                            android:id="@+id/imageButton6"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="아시안"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton7"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="치킨"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="피자"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="패스트푸드"
+                            app:srcCompat="@drawable/temp_button_50"/>
+                    </TableRow>
+
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="30"
+                        android:weightSum="40"
+                        android:layout_marginTop="10dp">
+
+                        <ImageButton
+                            android:id="@+id/imageButton10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="분식"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton11"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="주점"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="카페"
+                            app:srcCompat="@drawable/temp_button_50"/>
+
+                        <ImageButton
+                            android:id="@+id/imageButton13"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="10"
+                            android:background="@color/white"
+                            android:scaleType="centerInside"
+                            android:contentDescription="디저트"
+                            app:srcCompat="@drawable/temp_button_50"/>
+                    </TableRow>
+                </TableLayout>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="200"
+            android:weightSum="100"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="75"
+                android:weightSum="100"
+                android:orientation="horizontal">
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+
+                <Button
+                    android:id="@+id/button"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:layout_weight="80"
+                    android:text="Button" />
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="10" />
+            </LinearLayout>
+
+            <HorizontalScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="25"
+                android:contentDescription="다른사람의 리류를 볼 수 있는 스크롤뷰"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
