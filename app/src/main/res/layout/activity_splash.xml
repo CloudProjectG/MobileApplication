@@ -13,5 +13,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/tempLogo1" />
+        app:srcCompat="@drawable/temp_logo_1" />
 </androidx.constraintlayout.widget.ConstraintLayout>
