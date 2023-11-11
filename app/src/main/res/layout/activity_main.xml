@@ -42,7 +42,7 @@
                     <ImageButton
                         android:id="@+id/imageButton"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="match_parent"
                         android:layout_weight="30"
                         android:contentDescription="Logo"
                         app:srcCompat="@drawable/temp_button_75"/>
@@ -57,6 +57,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="Menu"
+                            android:background="@drawable/image_button_menu"
                             app:srcCompat="@drawable/temp_button_50"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +100,7 @@
                             android:minHeight="48dp"
                             android:background="@drawable/edit_text_search"
                             android:padding="8dp"
-                            android:text="Text"
+                            android:hint="Text"
                             android:textColor="#AAAAAA"
                             android:autofillHints="" />
 
@@ -131,7 +132,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_weight="80"
-                    android:background="@color/black"
+                    android:background="@drawable/table_layout_main"
                     android:weightSum="110">
 
                     <TableRow
@@ -145,8 +146,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="한식"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -155,8 +158,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="양식"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -165,8 +170,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="중식"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -175,8 +182,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="일식"
                             app:srcCompat="@drawable/temp_button_50"/>
                     </TableRow>
@@ -193,8 +202,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="아시안"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -203,8 +214,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="치킨"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -213,8 +226,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="피자"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -223,8 +238,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="패스트푸드"
                             app:srcCompat="@drawable/temp_button_50"/>
                     </TableRow>
@@ -241,8 +258,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="분식"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -251,8 +270,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="주점"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -261,8 +282,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="카페"
                             app:srcCompat="@drawable/temp_button_50"/>
 
@@ -271,8 +294,10 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="10"
-                            android:background="@color/white"
+                            android:background="@drawable/image_button_food_type"
                             android:scaleType="centerInside"
+                            android:layout_marginLeft="5dp"
+                            android:layout_marginRight="5dp"
                             android:contentDescription="디저트"
                             app:srcCompat="@drawable/temp_button_50"/>
                     </TableRow>
@@ -307,10 +332,15 @@
 
                 <Button
                     android:id="@+id/button"
+                    style="@style/MyButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
+                    android:layout_margin="10dp"
                     android:layout_weight="80"
-                    android:text="Button" />
+                    android:text="Button"
+                    android:textColor="#222222"
+                    app:cornerRadius="12dp"
+                    tools:ignore="TouchTargetSizeCheck" />
 
                 <Space
                     android:layout_width="wrap_content"
@@ -319,10 +349,20 @@
             </LinearLayout>
 
             <HorizontalScrollView
+                android:id="@+id/horizontalScrollView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="25"
-                android:contentDescription="다른사람의 리류를 볼 수 있는 스크롤뷰"/>
+                android:contentDescription="다른사람의 리류를 볼 수 있는 스크롤뷰">
+
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:orientation="horizontal"
+                    android:contentDescription="review layout">
+                </LinearLayout>
+            </HorizontalScrollView>
 
         </LinearLayout>
 
