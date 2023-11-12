@@ -12,6 +12,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.CloudProjectMobileApplication"
         tools:targetApi="31">
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-9401119006669998~4489868797">
+        </meta-data>
         <activity
             android:name=".SplashActivity"
             android:exported="true">

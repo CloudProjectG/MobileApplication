@@ -11,33 +11,40 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
+import android.widget.FrameLayout
+import android.content.Intent
+import android.util.Log
+import androidx.core.view.setMargins
+import androidx.core.view.setPadding
+import androidx.cardview.widget.CardView
+import android.graphics.ColorMatrix
+import android.graphics.ColorMatrixColorFilter
+import android.graphics.PorterDuff
+import android.graphics.PorterDuffColorFilter
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewParent
+import android.animation.ArgbEvaluator
+import android.animation.ValueAnimator
+import android.widget.Button
+import android.widget.EditText
+
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
-import android.util.Log
-import androidx.core.view.setMargins
-import androidx.core.view.setPadding
-import androidx.cardview.widget.CardView
-import com.google.android.material.card.MaterialCardView
-
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
-import android.graphics.PorterDuff
-import android.graphics.PorterDuffColorFilter
-import android.view.View
-import android.view.ViewParent
 import kotlinx.coroutines.delay
 
-import android.animation.ArgbEvaluator
-import android.animation.ValueAnimator
+import com.google.android.material.card.MaterialCardView
 
 class MainActivity : AppCompatActivity() {
     private lateinit var horizontalScrollView: HorizontalScrollView
     private lateinit var linearLayout:LinearLayout
     private var waitFlag:Boolean = false
+    private var backFlag:Boolean = false
     private var numCardView:Int = 0
+    private var imageButtonList:MutableList<ImageButton> = mutableListOf()
 
     val darkColorFilter = PorterDuffColorFilter(Color.parseColor("#80000000"), PorterDuff.Mode.SRC_ATOP)
 
@@ -71,6 +78,68 @@ class MainActivity : AppCompatActivity() {
             }
         }
     }
+
+    override fun onBackPressed() {
+        if (!backFlag) {
+            backFlag = true
+            disableObj()
+            showOverlayLayout()
+        }
+        else {
+            finishAffinity()
+        }
+    }
+    private fun disableObj() {
+        for (imageButton in imageButtonList) {
+            imageButton.isEnabled = false
+        }
+        for (i in 0..13) {
+            val buttonId = resources.getIdentifier("imageButton$i", "id", packageName)
+            val imageButton = findViewById<ImageButton>(buttonId)
+            imageButton.isEnabled = false
+        }
+        findViewById<Button>(R.id.button).isEnabled = false
+        findViewById<EditText>(R.id.editTextText).isEnabled = false
+        val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
+        horizontalScrollView.setOnTouchListener { _, _ -> true }
+    }
+
+    private fun enableObj() {
+        for (imageButton in imageButtonList) {
+            imageButton.isEnabled = true
+        }
+        for (i in 0..13) {
+            val buttonId = resources.getIdentifier("imageButton$i", "id", packageName)
+            val imageButton = findViewById<ImageButton>(buttonId)
+            imageButton.isEnabled = true
+        }
+        findViewById<Button>(R.id.button).isEnabled = true
+        findViewById<EditText>(R.id.editTextText).isEnabled = true
+        val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
+        horizontalScrollView.setOnTouchListener(null)
+    }
+    private fun showOverlayLayout() {
+        // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
+        val inflater = LayoutInflater.from(this)
+        val overlayView = inflater.inflate(R.layout.activity_end, null)
+
+        // FrameLayout에 overlayView를 추가하여 겹치게 함
+        val container = findViewById<FrameLayout>(R.id.mainFrameLayout)
+        container.addView(overlayView)
+
+        val cancelButton: Button = findViewById(R.id.endCancelButton)
+        val okButton: Button = findViewById(R.id.endOkButton)
+
+        cancelButton.setOnClickListener {
+            container.removeView(overlayView)
+            enableObj()
+            backFlag = false
+        }
+
+        okButton.setOnClickListener {
+            finishAffinity()
+        }
+    }
     private fun addCardView(imageName:String,numCardView:Int) {
         val cardView = MaterialCardView(this)
         val cardLayoutParams = LinearLayout.LayoutParams(400, LinearLayout.LayoutParams.MATCH_PARENT)
@@ -86,6 +155,7 @@ class MainActivity : AppCompatActivity() {
         //cardView.cardElevation = resources.getDimension(R.dimen.main_card_elevation)
 
         val imageButton = createImageButton(imageName)
+        imageButtonList.add(imageButton)
         val view = createView(numCardView)
         cardView.addView(imageButton)
         cardView.addView(view)
@@ -99,9 +169,10 @@ class MainActivity : AppCompatActivity() {
         view.layoutParams = viewParams
         view.tag = numCardView
         view.visibility=View.INVISIBLE
-        view.setBackgroundResource(R.color.main_card_view_background_color)
+        view.setBackgroundColor(Color.TRANSPARENT)
         return view
     }
+
     private fun createImageButton(imageName: String) : ImageButton {
         val imageButton = ImageButton(this)
         val imageSize = 400

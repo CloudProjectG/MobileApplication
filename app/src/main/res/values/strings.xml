@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">CloudProjectMobileApplication</string>
+    <string name="end_text_ask">종료하시겠습니까?</string>
+    <string name="end_text_inf">뒤로가기를 한 번 더 누르면 종료됩니다</string>
+    <string name="end_button_ok">Ok</string>
+    <string name="end_button_cancel">Cancel</string>
+    <string name="review">Review!</string>
 </resources>

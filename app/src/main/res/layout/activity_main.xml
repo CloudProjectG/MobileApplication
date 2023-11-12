@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/mainFrameLayout"
     tools:context=".MainActivity">
 
     <LinearLayout
@@ -40,7 +41,7 @@
                         tools:ignore="NestedWeights" />
 
                     <ImageButton
-                        android:id="@+id/imageButton"
+                        android:id="@+id/imageButton0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="30"
@@ -53,7 +54,7 @@
                         android:layout_weight="35">
 
                         <ImageButton
-                            android:id="@+id/imageButton19"
+                            android:id="@+id/imageButton1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:contentDescription="Menu"
@@ -90,7 +91,7 @@
                             android:layout_weight="20" />
 
                         <EditText
-                            android:id="@+id/editTextText2"
+                            android:id="@+id/editTextText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_weight="60"
@@ -337,10 +338,11 @@
                     android:layout_height="match_parent"
                     android:layout_margin="10dp"
                     android:layout_weight="80"
-                    android:text="Button"
+                    android:text="@string/review"
                     android:textColor="#222222"
                     app:cornerRadius="12dp"
-                    tools:ignore="TouchTargetSizeCheck" />
+                    tools:ignore="TouchTargetSizeCheck"
+                    android:textAllCaps="false"/>
 
                 <Space
                     android:layout_width="wrap_content"
@@ -367,4 +369,4 @@
         </LinearLayout>
 
     </LinearLayout>
-</androidx.constraintlayout.widget.ConstraintLayout>
+</FrameLayout>
