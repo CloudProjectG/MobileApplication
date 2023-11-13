@@ -5,20 +5,14 @@ import android.animation.AnimatorListenerAdapter
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.bumptech.glide.Glide
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.HorizontalScrollView
 import android.widget.LinearLayout
 import android.widget.FrameLayout
-import android.content.Intent
-import android.util.Log
 import androidx.core.view.setMargins
 import androidx.core.view.setPadding
-import androidx.cardview.widget.CardView
-import android.graphics.ColorMatrix
-import android.graphics.ColorMatrixColorFilter
 import android.graphics.PorterDuff
 import android.graphics.PorterDuffColorFilter
 import android.view.LayoutInflater
@@ -28,12 +22,11 @@ import android.animation.ArgbEvaluator
 import android.animation.ValueAnimator
 import android.widget.Button
 import android.widget.EditText
+import android.view.animation.AnimationUtils
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import kotlinx.coroutines.delay
 
 import com.google.android.material.card.MaterialCardView
@@ -41,8 +34,11 @@ import com.google.android.material.card.MaterialCardView
 class MainActivity : AppCompatActivity() {
     private lateinit var horizontalScrollView: HorizontalScrollView
     private lateinit var linearLayout:LinearLayout
+    private lateinit var menuButton:ImageButton
+    private lateinit var menuLayout:FrameLayout
     private var waitFlag:Boolean = false
     private var backFlag:Boolean = false
+    private var isMenuVisible = false
     private var numCardView:Int = 0
     private var imageButtonList:MutableList<ImageButton> = mutableListOf()
 
@@ -54,9 +50,19 @@ class MainActivity : AppCompatActivity() {
 
         horizontalScrollView = findViewById(R.id.horizontalScrollView)
         linearLayout = findViewById(R.id.linearLayout)
+        menuButton = findViewById(R.id.imageButton1)
+        menuLayout = findViewById(R.id.menuLayout)
+        hideMenu(menuLayout)
         for (i in 1..10) {
             val imageName = String.format("food_%02d", i)
             addCardView(imageName,numCardView++)
+        }
+
+        menuButton.setOnClickListener{
+            if (!isMenuVisible) {
+                showMenu(menuLayout)
+                disableObj()
+            }
         }
 
         horizontalScrollView.viewTreeObserver.addOnScrollChangedListener {
@@ -80,15 +86,35 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
-        if (!backFlag) {
-            backFlag = true
-            disableObj()
-            showOverlayLayout()
+        if (isMenuVisible) {
+            hideMenu(menuLayout)
+            enableObj()
         }
-        else {
-            finishAffinity()
+        else{
+            if (!backFlag) {
+                backFlag = true
+                disableObj()
+                showOverlayLayout()
+            } else {
+                finishAffinity()
+            }
         }
     }
+
+    private fun showMenu(menuLayout: View) {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right)
+        menuLayout.startAnimation(animation)
+        menuLayout.visibility = View.VISIBLE
+        isMenuVisible = true
+    }
+
+    private fun hideMenu(menuLayout: View) {
+        val animation = AnimationUtils.loadAnimation(this, R.anim.slide_out_right)
+        menuLayout.startAnimation(animation)
+        menuLayout.visibility = View.GONE
+        isMenuVisible = false
+    }
+
     private fun disableObj() {
         for (imageButton in imageButtonList) {
             imageButton.isEnabled = false
@@ -121,7 +147,7 @@ class MainActivity : AppCompatActivity() {
     private fun showOverlayLayout() {
         // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
         val inflater = LayoutInflater.from(this)
-        val overlayView = inflater.inflate(R.layout.activity_end, null)
+        val overlayView = inflater.inflate(R.layout.layout_end, null)
 
         // FrameLayout에 overlayView를 추가하여 겹치게 함
         val container = findViewById<FrameLayout>(R.id.mainFrameLayout)

@@ -13,8 +13,8 @@
         android:background="@android:color/transparent">
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_width="310dp"
+            android:layout_height="480dp"
             android:background="@android:color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

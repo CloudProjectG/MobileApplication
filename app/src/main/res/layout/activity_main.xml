@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:id="@+id/mainFrameLayout"
     tools:context=".MainActivity">
+    <include layout="@layout/layout_menu"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -5,4 +5,6 @@
     <string name="end_button_ok">Ok</string>
     <string name="end_button_cancel">Cancel</string>
     <string name="review">Review!</string>
+    <string name="menuAppInfo">앱정보</string>
+    <string name="menuLayerInfo">메뉴정보</string>
 </resources>
