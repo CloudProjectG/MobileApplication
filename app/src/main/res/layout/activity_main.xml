@@ -86,15 +86,15 @@
                         android:orientation="horizontal">
 
                         <Space
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="20" />
+                            android:layout_weight="5" />
 
                         <EditText
-                            android:id="@+id/editTextText"
+                            android:id="@+id/searchEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="60"
+                            android:layout_weight="80"
                             android:layout_marginTop="16dp"
                             android:ems="10"
                             android:inputType="text"
@@ -108,7 +108,20 @@
                         <Space
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="20" />
+                            android:layout_weight="5" />
+
+
+                        <ImageButton
+                            android:id="@+id/imageButton14"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="16dp"
+                            app:srcCompat="@drawable/temp_button_50" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5" />
 
                     </LinearLayout>
 
@@ -332,7 +345,7 @@
                     android:layout_weight="10" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/reviewButton"
                     style="@style/MyButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"

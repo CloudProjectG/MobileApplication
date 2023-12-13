@@ -41,6 +41,23 @@ import com.google.android.material.card.MaterialCardView
 class MainActivity : AppCompatActivity() {
     private lateinit var horizontalScrollView: HorizontalScrollView
     private lateinit var linearLayout:LinearLayout
+    private lateinit var searchEditText: EditText
+    private lateinit var menuButton: ImageButton
+    private lateinit var logoButton: ImageButton
+    private lateinit var searchTextButton: ImageButton
+    private lateinit var searchKorean: ImageButton
+    private lateinit var searchWestern: ImageButton
+    private lateinit var searchChinese: ImageButton
+    private lateinit var searchJapanese: ImageButton
+    private lateinit var searchAsian: ImageButton
+    private lateinit var searchBoonshik: ImageButton
+    private lateinit var searchChicken: ImageButton
+    private lateinit var searchPizza: ImageButton
+    private lateinit var searchFastFood: ImageButton
+    private lateinit var searchBar: ImageButton
+    private lateinit var searchCafe: ImageButton
+    private lateinit var searchDessert: ImageButton
+    private lateinit var reviewButton: Button
     private var waitFlag:Boolean = false
     private var backFlag:Boolean = false
     private var numCardView:Int = 0
@@ -54,6 +71,90 @@ class MainActivity : AppCompatActivity() {
 
         horizontalScrollView = findViewById(R.id.horizontalScrollView)
         linearLayout = findViewById(R.id.linearLayout)
+        searchEditText = findViewById(R.id.searchEditText)
+        logoButton = findViewById(R.id.imageButton0)
+        menuButton = findViewById(R.id.imageButton1)
+
+        searchTextButton = findViewById(R.id.imageButton14)
+        searchKorean = findViewById(R.id.imageButton2)
+        searchWestern = findViewById(R.id.imageButton3)
+        searchChinese = findViewById(R.id.imageButton4)
+        searchJapanese = findViewById(R.id.imageButton5)
+        searchAsian = findViewById(R.id.imageButton6)
+        searchBoonshik = findViewById(R.id.imageButton7)
+        searchChicken = findViewById(R.id.imageButton8)
+        searchPizza = findViewById(R.id.imageButton9)
+        searchFastFood = findViewById(R.id.imageButton10)
+        searchBar = findViewById(R.id.imageButton11)
+        searchCafe = findViewById(R.id.imageButton12)
+        searchDessert = findViewById(R.id.imageButton13)
+
+        reviewButton = findViewById(R.id.reviewButton)
+
+        val onClickListener = View.OnClickListener { view ->
+            var userInput: String = ""
+            when (view.id) {
+                R.id.imageButton14 -> {
+                    userInput = searchEditText.text.toString()
+                }
+                R.id.imageButton2 -> {
+                    userInput = "한식"
+                }
+                R.id.imageButton3 -> {
+                    userInput = "양식"
+                }
+                R.id.imageButton4 -> {
+                    userInput = "중식"
+                }
+                R.id.imageButton5 -> {
+                    userInput = "일식"
+                }
+                R.id.imageButton6 -> {
+                    userInput = "아시안"
+                }
+                R.id.imageButton7 -> {
+                    userInput = "분식"
+                }
+                R.id.imageButton8 -> {
+                    userInput = "치킨"
+                }
+                R.id.imageButton9 -> {
+                    userInput = "피자"
+                }
+                R.id.imageButton10 -> {
+                    userInput = "패스트푸드"
+                }
+                R.id.imageButton11 -> {
+                    userInput = "주점"
+                }
+                R.id.imageButton12 -> {
+                    userInput = "카페"
+                }
+                R.id.imageButton13 -> {
+                    userInput = "디저트"
+                }
+            }
+            val intent = Intent(this, SearchActivity::class.java)
+            val url:String = "http://localhost:8080"
+            intent.putExtra("USER_INPUT", userInput)
+            intent.putExtra("ROOT_URL", url)
+            startActivity(intent)
+        }
+
+        searchTextButton.setOnClickListener(onClickListener)
+        searchKorean.setOnClickListener(onClickListener)
+        searchWestern.setOnClickListener(onClickListener)
+        searchChinese.setOnClickListener(onClickListener)
+        searchJapanese.setOnClickListener(onClickListener)
+        searchAsian.setOnClickListener(onClickListener)
+        searchBoonshik.setOnClickListener(onClickListener)
+        searchChicken.setOnClickListener(onClickListener)
+        searchPizza.setOnClickListener(onClickListener)
+        searchFastFood.setOnClickListener(onClickListener)
+        searchBar.setOnClickListener(onClickListener)
+        searchCafe.setOnClickListener(onClickListener)
+        searchDessert.setOnClickListener(onClickListener)
+
         for (i in 1..10) {
             val imageName = String.format("food_%02d", i)
             addCardView(imageName,numCardView++)
@@ -89,17 +190,18 @@ class MainActivity : AppCompatActivity() {
             finishAffinity()
         }
     }
+
     private fun disableObj() {
         for (imageButton in imageButtonList) {
             imageButton.isEnabled = false
         }
-        for (i in 0..13) {
+        for (i in 0..14) {
             val buttonId = resources.getIdentifier("imageButton$i", "id", packageName)
             val imageButton = findViewById<ImageButton>(buttonId)
             imageButton.isEnabled = false
         }
-        findViewById<Button>(R.id.button).isEnabled = false
-        findViewById<EditText>(R.id.editTextText).isEnabled = false
+        findViewById<Button>(R.id.reviewButton).isEnabled = false
+        findViewById<EditText>(R.id.searchEditText).isEnabled = false
         val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
         horizontalScrollView.setOnTouchListener { _, _ -> true }
     }
@@ -108,13 +210,13 @@ class MainActivity : AppCompatActivity() {
         for (imageButton in imageButtonList) {
             imageButton.isEnabled = true
         }
-        for (i in 0..13) {
+        for (i in 0..14) {
             val buttonId = resources.getIdentifier("imageButton$i", "id", packageName)
             val imageButton = findViewById<ImageButton>(buttonId)
             imageButton.isEnabled = true
         }
-        findViewById<Button>(R.id.button).isEnabled = true
-        findViewById<EditText>(R.id.editTextText).isEnabled = true
+        findViewById<Button>(R.id.reviewButton).isEnabled = true
+        findViewById<EditText>(R.id.searchEditText).isEnabled = true
         val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
         horizontalScrollView.setOnTouchListener(null)
     }
