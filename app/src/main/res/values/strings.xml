@@ -7,4 +7,17 @@
     <string name="review">Review!</string>
     <string name="menuAppInfo">앱정보</string>
     <string name="menuLayerInfo">메뉴정보</string>
+    <string name="korean">한식</string>
+    <string name="japanese">일식</string>
+    <string name="chinese">중식</string>
+    <string name="western">양식</string>
+    <string name="asian">아시안</string>
+    <string name="cafe">카페</string>
+    <string name="chicken">치킨</string>
+    <string name="pizza">피자</string>
+    <string name="fastFood">패스트푸드</string>
+    <string name="bar">주점</string>
+    <string name="bunsik">분식</string>
+    <string name="dessert">디저트</string>
+    <string name="restaurants">restaurants</string>
 </resources>

@@ -87,15 +87,15 @@
                         android:orientation="horizontal">
 
                         <Space
-                            android:layout_width="wrap_content"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="20" />
+                            android:layout_weight="5" />
 
                         <EditText
-                            android:id="@+id/editTextText"
+                            android:id="@+id/searchEditText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="60"
+                            android:layout_weight="80"
                             android:layout_marginTop="16dp"
                             android:ems="10"
                             android:inputType="text"
@@ -109,7 +109,20 @@
                         <Space
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_weight="20" />
+                            android:layout_weight="5" />
+
+
+                        <ImageButton
+                            android:id="@+id/imageButton14"
+                            android:layout_width="48dp"
+                            android:layout_height="48dp"
+                            android:layout_marginTop="16dp"
+                            app:srcCompat="@drawable/temp_button_50" />
+
+                        <Space
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="5" />
 
                     </LinearLayout>
 
@@ -152,7 +165,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="한식"
+                            android:contentDescription="@string/korean"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -164,7 +177,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="양식"
+                            android:contentDescription="@string/western"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -176,7 +189,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="중식"
+                            android:contentDescription="@string/chinese"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -188,7 +201,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="일식"
+                            android:contentDescription="@string/japanese"
                             app:srcCompat="@drawable/temp_button_50"/>
                     </TableRow>
 
@@ -208,7 +221,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="아시안"
+                            android:contentDescription="@string/asian"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -220,7 +233,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="치킨"
+                            android:contentDescription="@string/chicken"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -232,7 +245,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="피자"
+                            android:contentDescription="@string/pizza"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -244,7 +257,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="패스트푸드"
+                            android:contentDescription="@string/fastFood"
                             app:srcCompat="@drawable/temp_button_50"/>
                     </TableRow>
 
@@ -264,7 +277,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="분식"
+                            android:contentDescription="@string/bunsik"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -276,7 +289,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="주점"
+                            android:contentDescription="@string/bar"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -288,7 +301,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="카페"
+                            android:contentDescription="@string/cafe"
                             app:srcCompat="@drawable/temp_button_50"/>
 
                         <ImageButton
@@ -300,7 +313,7 @@
                             android:scaleType="centerInside"
                             android:layout_marginLeft="5dp"
                             android:layout_marginRight="5dp"
-                            android:contentDescription="디저트"
+                            android:contentDescription="@string/dessert"
                             app:srcCompat="@drawable/temp_button_50"/>
                     </TableRow>
                 </TableLayout>
@@ -333,7 +346,7 @@
                     android:layout_weight="10" />
 
                 <Button
-                    android:id="@+id/button"
+                    android:id="@+id/reviewButton"
                     style="@style/MyButtonStyle"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
