@@ -4,7 +4,11 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import android.view.Gravity
+import android.view.LayoutInflater
+import android.view.ViewGroup
+import android.widget.Button
 import android.widget.EditText
+import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -13,8 +17,11 @@ import android.widget.TextView
 import android.widget.ProgressBar
 
 import androidx.appcompat.app.AppCompatActivity
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.coordinatorlayout.widget.CoordinatorLayout
 import androidx.core.view.setMargins
 import androidx.core.widget.NestedScrollView
+import com.google.android.material.appbar.AppBarLayout
 
 
 import com.google.android.material.card.MaterialCardView
@@ -43,6 +50,7 @@ class SearchActivity : AppCompatActivity() {
     private val progressBarId = View.generateViewId()
     private lateinit var rootURL: String
     private var currentPage = 1
+    private var currentReviewPage = 1
     private var isLoading = false
 
     private lateinit var searchTextButton: ImageButton
@@ -59,12 +67,24 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var searchCafe: ImageButton
     private lateinit var searchDessert: ImageButton
 
+    private lateinit var inflater: LayoutInflater
+    private lateinit var container: FrameLayout
+    private lateinit var overlayView: View
+
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
     var isScroll = true
+
+    private var storeCreate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        inflater = LayoutInflater.from(this)
+        overlayView = inflater.inflate(R.layout.layout_store, null)
+
+        // FrameLayout에 overlayView를 추가하여 겹치게 함
+        container = findViewById(R.id.mainFrameLayout)
 
         val receivedData = intent.getStringExtra("USER_INPUT")
         val receivedRootURL = intent.getStringExtra("ROOT_URL")
@@ -190,7 +210,7 @@ class SearchActivity : AppCompatActivity() {
             if (isAtBottom && isScroll) {
                 // 하단 끝에 도달했을 때의 처리
                 isScroll = false
-                showLoading()
+                showLoading(searchLinearLayout)
                 fetchData()
             } else if (isAtTop) {
                 // 상단 끝에 도달했을 때의 처리
@@ -219,7 +239,7 @@ class SearchActivity : AppCompatActivity() {
             for (i in 1..10) {
                 createCardView(i)
             }
-            hideLoading()
+            hideLoading(searchLinearLayout)
             isScroll = true
             currentPage++
             isLoading = false
@@ -237,16 +257,16 @@ class SearchActivity : AppCompatActivity() {
                 val response = apiService.fetchData()
                 if (response.isSuccessful) {
                     val responseData = response.body()
-                    hideLoading()
+                    hideLoading(searchLinearLayout)
                     createCardView(responseData ?: "No Data")
                 } else {
                     // 실패 처리
-                    hideLoading()
+                    hideLoading(searchLinearLayout)
                     Toast.makeText(this@SearchActivity, "Server request failed", Toast.LENGTH_SHORT).show()
                 }
             } catch (e: Exception) {
                 // 예외 처리
-                hideLoading()
+                hideLoading(searchLinearLayout)
                 Toast.makeText(this@SearchActivity, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
             }
 
@@ -369,15 +389,107 @@ class SearchActivity : AppCompatActivity() {
         cardView.addView(cardContentLayout)
         cardView.radius = resources.getDimension(R.dimen.main_card_corner_radius)
         cardView.setBackgroundResource(R.drawable.table_layout_main)
+        cardView.setOnClickListener {
+            showOverlayLayout()
+        }
         searchLinearLayout.addView(cardView)
     }
 
-    private fun showLoading() {
-        searchLinearLayout.addView(progressBar)
+    private fun showLoading(linearLayout: LinearLayout) {
+        linearLayout.addView(progressBar)
     }
 
-    private fun hideLoading() {
+    private fun hideLoading(linearLayout: LinearLayout) {
         val progressBarToRemove = findViewById<ProgressBar>(progressBarId)
-        searchLinearLayout.removeView(progressBarToRemove)
+        linearLayout.removeView(progressBarToRemove)
+    }
+
+    private fun showOverlayLayout() {
+        // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
+        storeCreate = true
+        container.addView(overlayView)
+
+        val externalArea = findViewById<ConstraintLayout>(R.id.externalArea)
+        val internalArea = findViewById<ConstraintLayout>(R.id.internalArea)
+        internalArea.isSoundEffectsEnabled = false
+        externalArea.setOnClickListener {
+            container.removeView(overlayView)
+            storeCreate= false
+        }
+        internalArea.setOnClickListener {
+        }
+        createReviewContainer()
+    }
+    private fun removeOverlayLayout() {
+        // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
+        storeCreate= false
+        container.removeView(overlayView)
+        currentReviewPage = 1
+    }
+
+    private fun createReviewContainer() {
+        val appBarLayout: AppBarLayout = findViewById(R.id.appBarLayout)
+        val reviewScrollView = findViewById<NestedScrollView>(R.id.reviewScroll)
+        val reviewContainer = findViewById<LinearLayout>(R.id.reviewContainer)
+        appBarLayout.setExpanded(true)
+        reviewScrollView.scrollTo(0, 0)
+        val childCount = reviewContainer.childCount
+        if (childCount>0) {
+            reviewContainer.removeAllViews()
+        }
+        for (i in 1..10) {
+            createReview(i, reviewContainer)
+        }
+        reviewScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
+            val isAtBottom = scrollY == (reviewScrollView.getChildAt(0).measuredHeight - reviewScrollView.measuredHeight)
+            val isAtTop = scrollY == 0
+
+            if (isAtBottom && isScroll) {
+                // 하단 끝에 도달했을 때의 처리
+                isScroll = false
+                showLoading(reviewContainer)
+                fetchReviewData(reviewContainer)
+            } else if (isAtTop) {
+                // 상단 끝에 도달했을 때의 처리
+                showToast("At Top")
+            }
+        })
+    }
+
+    private fun fetchReviewData(linearLayout: LinearLayout) {
+        isLoading = true
+        GlobalScope.launch(Dispatchers.Main) {
+            // HTTP 요청을 보내고 응답을 받아오는 작업
+            /*val responseData = withContext(Dispatchers.IO) {
+                // 가상의 HTTP 요청 및 응답 데이터 받아오기
+                delay(2000) // 가상의 지연 시간
+                "Response Data for Page $currentPage"
+            }*/
+            delay(2000)
+
+            // 응답 데이터를 기반으로 CardView 생성 및 추가 작업
+            for (i in 1..10) {
+                createReview(i, linearLayout)
+            }
+            hideLoading(linearLayout)
+            isScroll = true
+            currentReviewPage++
+            isLoading = false
+        }
+    }
+
+    private fun createReview(data: Int, linearLayout: LinearLayout) {
+        val cardViewLayout = LayoutInflater.from(this).inflate(R.layout.review_cardview, null) as MaterialCardView // 원하는 레이아웃의 ID를 지정
+        val cardLayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 250)
+        cardLayoutParams.setMargins(10)
+        cardViewLayout.layoutParams = cardLayoutParams
+
+        linearLayout.addView(cardViewLayout)
+    }
+    override fun onBackPressed() {
+        if (storeCreate) {
+            removeOverlayLayout()
+        }
+        else finish()
     }
 }

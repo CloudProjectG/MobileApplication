@@ -20,4 +20,8 @@
     <string name="bunsik">분식</string>
     <string name="dessert">디저트</string>
     <string name="restaurants">restaurants</string>
+    <string name="userName">User Name</string>
+    <string name="hashTag">Hashtag</string>
+    <string name="foodName">Food Name</string>
+    <string name="comment">Comment</string>
 </resources>

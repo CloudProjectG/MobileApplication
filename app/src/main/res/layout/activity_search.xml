@@ -1,246 +1,252 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".SearchActivity"
-    >
+    android:id="@+id/mainFrameLayout"
+    tools:context=".SearchActivity">
+    <include layout="@layout/layout_menu"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/searchEditTextLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.12"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
+        android:layout_height="match_parent">
 
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchEditTextLayout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="100"
-            android:orientation="horizontal"
-            android:gravity="center">
-
-            <EditText
-                android:id="@+id/searchEditText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:autofillHints=""
-                android:background="@drawable/edit_text_search"
-                android:hint="Text"
-                android:inputType="text"
-                android:minHeight="48dp"
-                android:padding="8dp"
-                android:textColor="#AAAAAA"
-                android:layout_weight="80"/>
-
-            <Space
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="5" />
-
-            <ImageButton
-                android:id="@+id/searchButton"
-                android:layout_width="48dp"
-                android:layout_height="48dp"
-                android:layout_gravity="center"
-                android:background="@drawable/image_button_food_type"
-                android:contentDescription="@string/korean"
-                android:scaleType="centerInside"
-                android:src="@drawable/temp_button_50" />
-        </LinearLayout>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/searchBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.15"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchEditTextLayout">
-
-        <TableLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:weightSum="70"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.12"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="35"
-                android:weightSum="6">
-
-                <ImageButton
-                    android:id="@+id/searchKorean"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/korean"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchWestern"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/western"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchChinese"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/chinese"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchJapanese"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/japanese"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchAsian"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/asian"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchBoonshik"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/bunsik"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-            </TableRow>
-
-            <TableRow
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="35"
-                android:weightSum="6">
-                <ImageButton
-                    android:id="@+id/searchChicken"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/chicken"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchPizza"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/pizza"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchFastFood"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/fastFood"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchBar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/bar"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-                <ImageButton
-                    android:id="@+id/searchCafe"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/cafe"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50"/>
-
-                <ImageButton
-                    android:id="@+id/searchDessert"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:contentDescription="@string/dessert"
-                    android:background="@drawable/image_button_food_type"
-                    android:scaleType="centerInside"
-                    android:layout_gravity="center"
-                    android:layout_marginHorizontal="5dp"
-                    android:src="@drawable/temp_button_50" />
-            </TableRow>
-        </TableLayout>
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/searchRestaurantsLayout"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.73"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/searchBarLayout"
-        >
-
-        <androidx.core.widget.NestedScrollView
-            android:id="@+id/searchScroll"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fillViewport="true"
-            android:contentDescription="@string/restaurants">
-
             <LinearLayout
-                android:id="@+id/searchContainer"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" />
-        </androidx.core.widget.NestedScrollView>
+                android:layout_height="match_parent"
+                android:weightSum="100"
+                android:orientation="horizontal"
+                android:gravity="center">
+
+                <EditText
+                    android:id="@+id/searchEditText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:autofillHints=""
+                    android:background="@drawable/edit_text_search"
+                    android:hint="Text"
+                    android:inputType="text"
+                    android:minHeight="48dp"
+                    android:padding="8dp"
+                    android:textColor="#AAAAAA"
+                    android:layout_weight="80"/>
+
+                <Space
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="5" />
+
+                <ImageButton
+                    android:id="@+id/searchButton"
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_gravity="center"
+                    android:background="@drawable/image_button_food_type"
+                    android:contentDescription="@string/korean"
+                    android:scaleType="centerInside"
+                    android:src="@drawable/temp_button_50" />
+            </LinearLayout>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchBarLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.15"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchEditTextLayout">
+
+            <TableLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:weightSum="70"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="35"
+                    android:weightSum="6">
+
+                    <ImageButton
+                        android:id="@+id/searchKorean"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/korean"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchWestern"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/western"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchChinese"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/chinese"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchJapanese"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/japanese"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchAsian"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/asian"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchBoonshik"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/bunsik"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                </TableRow>
+
+                <TableRow
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="35"
+                    android:weightSum="6">
+                    <ImageButton
+                        android:id="@+id/searchChicken"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/chicken"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchPizza"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/pizza"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchFastFood"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/fastFood"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchBar"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/bar"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+                    <ImageButton
+                        android:id="@+id/searchCafe"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/cafe"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50"/>
+
+                    <ImageButton
+                        android:id="@+id/searchDessert"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:contentDescription="@string/dessert"
+                        android:background="@drawable/image_button_food_type"
+                        android:scaleType="centerInside"
+                        android:layout_gravity="center"
+                        android:layout_marginHorizontal="5dp"
+                        android:src="@drawable/temp_button_50" />
+                </TableRow>
+            </TableLayout>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/searchRestaurantsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintHeight_percent="0.73"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/searchBarLayout"
+            >
+
+            <androidx.core.widget.NestedScrollView
+                android:id="@+id/searchScroll"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true"
+                android:contentDescription="@string/restaurants">
+
+                <LinearLayout
+                    android:id="@+id/searchContainer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+            </androidx.core.widget.NestedScrollView>
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
-
+</FrameLayout>
