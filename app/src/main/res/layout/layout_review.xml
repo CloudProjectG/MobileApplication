@@ -31,9 +31,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_weight="20">
+                    android:layout_weight="30">
 
                     <ImageView
                         android:id="@+id/score0"
@@ -81,7 +79,7 @@
                         android:id="@+id/reviewHashTag0"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="hashTag#0"
+                        android:text="tag#0"
                         android:gravity="center_vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/comma0"
@@ -101,7 +99,7 @@
                         android:id="@+id/reviewHashTag1"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="hashTag#1"
+                        android:text="tag#1"
                         android:gravity="center_vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toStartOf="@id/comma1"
@@ -121,7 +119,7 @@
                         android:id="@+id/reviewHashTag2"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:text="hashTag#2"
+                        android:text="tag#2"
                         android:gravity="center_vertical"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintEnd_toEndOf="parent"
@@ -131,7 +129,7 @@
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="80">
+                    android:layout_weight="70">
 
                     <TextView
                         android:id="@+id/reviewFoodName"

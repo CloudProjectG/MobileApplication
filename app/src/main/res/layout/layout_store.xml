@@ -12,10 +12,10 @@
         android:id="@+id/externalArea"
         android:background="@android:color/transparent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <FrameLayout
+            android:id="@+id/infoFrameLayout"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:id="@+id/internalArea"
             android:background="@drawable/table_layout_main"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -25,128 +25,126 @@
             app:layout_constraintWidth_percent="0.8">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/storeName"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:background="@color/transparent"
-                app:layout_constraintHeight_percent="0.20"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                >
+                android:layout_height="match_parent"
+                android:id="@+id/internalArea">
 
-                <LinearLayout
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/storeName"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:weightSum="100"
-                    android:orientation="horizontal">
+                    android:layout_height="0dp"
+                    android:background="@color/transparent"
+                    app:layout_constraintHeight_percent="0.20"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    >
 
                     <LinearLayout
-                        android:layout_width="0dp"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_weight="80"
                         android:weightSum="100"
-                        android:orientation="vertical">
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="80"
+                            android:weightSum="100"
+                            android:orientation="vertical">
 
 
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_weight="20">
-
-                            <ImageView
-                                android:id="@+id/score0"
-                                android:layout_width="20dp"
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
                                 android:layout_height="0dp"
-                                android:src="@drawable/star_filled_2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <ImageView
-                                android:id="@+id/score1"
-                                android:layout_width="20dp"
-                                android:layout_height="0dp"
-                                android:src="@drawable/star_three_quarter_2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/score0"
-                                app:layout_constraintTop_toTopOf="parent" />
-                            <ImageView
-                                android:id="@+id/score2"
-                                android:layout_width="20dp"
-                                android:layout_height="0dp"
-                                android:src="@drawable/star_half_2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/score1"
-                                app:layout_constraintTop_toTopOf="parent" />
-                            <ImageView
-                                android:id="@+id/score3"
-                                android:layout_width="20dp"
-                                android:layout_height="0dp"
-                                android:src="@drawable/star_quarter_2"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/score2"
-                                app:layout_constraintTop_toTopOf="parent" />
-                            <ImageView
-                                android:id="@+id/score4"
-                                android:layout_width="20dp"
-                                android:layout_height="0dp"
-                                android:src="@drawable/star_remove"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toEndOf="@id/score3"
-                                app:layout_constraintTop_toTopOf="parent"/>
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_weight="80">
-
-                            <TextView
-                                android:id="@+id/textView9"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:textSize="30dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                android:text="StoreName" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                android:layout_marginTop="10dp"
+                                android:layout_weight="20">
+
+                                <ImageView
+                                    android:id="@+id/score0"
+                                    android:layout_width="20dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/star_filled_2"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <ImageView
+                                    android:id="@+id/score1"
+                                    android:layout_width="20dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/star_three_quarter_2"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/score0"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/score2"
+                                    android:layout_width="20dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/star_half_2"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/score1"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/score3"
+                                    android:layout_width="20dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/star_quarter_2"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/score2"
+                                    app:layout_constraintTop_toTopOf="parent" />
+                                <ImageView
+                                    android:id="@+id/score4"
+                                    android:layout_width="20dp"
+                                    android:layout_height="0dp"
+                                    android:src="@drawable/star_remove"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toEndOf="@id/score3"
+                                    app:layout_constraintTop_toTopOf="parent"/>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="80">
+
+                                <TextView
+                                    android:id="@+id/textView9"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginStart="10dp"
+                                    android:textSize="30dp"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    android:text="StoreName" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+                        </LinearLayout>
+
+                        <ImageButton
+                            android:id="@+id/imageButton"
+                            android:layout_width="0dp"
+                            android:layout_height="60dp"
+                            android:layout_weight="20"
+                            android:src="@drawable/map2"
+                            android:layout_gravity="center"
+                            android:layout_margin="10dp"
+                            android:scaleType="centerInside"
+                            android:background="@drawable/image_button_menu"
+                            android:contentDescription="지도"/>
                     </LinearLayout>
-
-                    <ImageButton
-                        android:id="@+id/imageButton"
-                        android:layout_width="0dp"
-                        android:layout_height="60dp"
-                        android:layout_weight="20"
-                        android:src="@drawable/map2"
-                        android:layout_gravity="center"
-                        android:layout_margin="10dp"
-                        android:scaleType="centerInside"
-                        android:background="@drawable/image_button_menu"
-                        android:contentDescription="지도"/>
-                </LinearLayout>
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-            <FrameLayout
-                android:id="@+id/infoFrameLayout"
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHeight_percent="0.80"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/storeName">
-
-
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
                 <androidx.coordinatorlayout.widget.CoordinatorLayout
                     android:id="@+id/coordinatorLayout"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="0dp"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHeight_percent="0.80"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@id/storeName">
 
                     <!-- AppBarLayout -->
                     <com.google.android.material.appbar.AppBarLayout
@@ -228,7 +226,7 @@
                         </androidx.core.widget.NestedScrollView>
                     </androidx.constraintlayout.widget.ConstraintLayout>
                 </androidx.coordinatorlayout.widget.CoordinatorLayout>
-            </FrameLayout>
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
+        </FrameLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

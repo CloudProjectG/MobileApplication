@@ -2,6 +2,7 @@ package com.example.cloudprojectmobileapplication
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -71,20 +72,24 @@ class SearchActivity : AppCompatActivity() {
     private lateinit var container: FrameLayout
     private lateinit var overlayView: View
 
+    private lateinit var containerReview: FrameLayout
+    private lateinit var overlayViewReview: View
+
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
     var isScroll = true
 
     private var storeCreate = false
+    private var reviewCreate = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
 
         inflater = LayoutInflater.from(this)
         overlayView = inflater.inflate(R.layout.layout_store, null)
-
-        // FrameLayout에 overlayView를 추가하여 겹치게 함
         container = findViewById(R.id.mainFrameLayout)
+
+        overlayViewReview = inflater.inflate(R.layout.layout_review, null)
 
         val receivedData = intent.getStringExtra("USER_INPUT")
         val receivedRootURL = intent.getStringExtra("ROOT_URL")
@@ -408,13 +413,14 @@ class SearchActivity : AppCompatActivity() {
         // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
         storeCreate = true
         container.addView(overlayView)
+        containerReview = findViewById(R.id.infoFrameLayout)
 
         val externalArea = findViewById<ConstraintLayout>(R.id.externalArea)
         val internalArea = findViewById<ConstraintLayout>(R.id.internalArea)
         internalArea.isSoundEffectsEnabled = false
         externalArea.setOnClickListener {
             container.removeView(overlayView)
-            storeCreate= false
+            storeCreate = false
         }
         internalArea.setOnClickListener {
         }
@@ -483,13 +489,42 @@ class SearchActivity : AppCompatActivity() {
         val cardLayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 250)
         cardLayoutParams.setMargins(10)
         cardViewLayout.layoutParams = cardLayoutParams
-
+        cardViewLayout.setOnClickListener { showReviewLayout() }
         linearLayout.addView(cardViewLayout)
     }
     override fun onBackPressed() {
-        if (storeCreate) {
+        if (reviewCreate) {
+            removeReviewLayout()
+        }
+        else if (storeCreate) {
             removeOverlayLayout()
         }
         else finish()
+    }
+
+    private fun showReviewLayout() {
+        // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
+        reviewCreate = true
+        containerReview.addView(overlayViewReview)
+
+        val externalArea = findViewById<ConstraintLayout>(R.id.externalArea)
+        val internalArea = findViewById<ConstraintLayout>(R.id.internalArea)
+        internalArea.isSoundEffectsEnabled = false
+        externalArea.setOnClickListener {
+            containerReview.removeView(overlayViewReview)
+            reviewCreate= false
+            externalArea.setOnClickListener{
+                container.removeView(overlayView)
+                storeCreate = false
+            }
+        }
+        internalArea.setOnClickListener {
+        }
+    }
+    private fun removeReviewLayout() {
+        // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
+        reviewCreate= false
+        containerReview.removeView(overlayViewReview)
+        currentReviewPage = 1
     }
 }
