@@ -3,4 +3,7 @@
     <style name="MyButtonStyle" parent="Widget.MaterialComponents.Button">
         <item name="backgroundTint">#FFEEDD</item> <!-- 배경색 설정 -->
     </style>
+    <style name="loginButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#BBBBBB</item> <!-- 배경색 설정 -->
+    </style>
 </resources>
