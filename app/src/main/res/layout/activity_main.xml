@@ -117,6 +117,7 @@
                             android:layout_width="48dp"
                             android:layout_height="48dp"
                             android:layout_marginTop="16dp"
+                            android:contentDescription="검색"
                             app:srcCompat="@drawable/temp_button_50" />
 
                         <Space

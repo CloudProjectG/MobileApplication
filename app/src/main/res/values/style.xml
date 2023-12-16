@@ -17,4 +17,7 @@
     <!-- Add a new style for the app bar overlay -->
     <style name="AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
 
+    <style name="loginButton" parent="Widget.MaterialComponents.Button">
+        <item name="backgroundTint">#BBBBBB</item> <!-- 배경색 설정 -->
+    </style>
 </resources>

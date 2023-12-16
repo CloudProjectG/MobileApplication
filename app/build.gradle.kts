@@ -1,6 +1,7 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+//    id("com.google.gms.google-services")
 }
 
 android {
@@ -44,6 +45,10 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9")
     implementation("com.github.bumptech.glide:glide:4.12.0")
     implementation("com.google.android.gms:play-services-ads:22.5.0")
+//    implementation("com.google.firebase:firebase-auth:22.0.0")
+//    implementation(platform("com.google.firebase:firebase-bom:32.3.1"))
+//    implementation("com.google.firebase:firebase-auth-ktx")
+//    implementation("com.google.android.gms:play-services-auth:20.0.0")
     implementation("androidx.legacy:legacy-support-v4:1.0.0")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")

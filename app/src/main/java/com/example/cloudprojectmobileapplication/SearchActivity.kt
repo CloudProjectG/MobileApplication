@@ -77,10 +77,15 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
+
+    private lateinit var appBarLayout: AppBarLayout
+    private lateinit var reviewScrollView: NestedScrollView
+    private lateinit var reviewContainer: LinearLayout
     var isScroll = true
 
     private var storeCreate = false
     private var reviewCreate = false
+    private var cardViewList:MutableList<MaterialCardView> = mutableListOf()
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
@@ -431,12 +436,12 @@ class SearchActivity : AppCompatActivity() {
         storeCreate= false
         container.removeView(overlayView)
         currentReviewPage = 1
+        cardViewList.clear()
     }
 
     private fun createReviewContainer() {
-        val appBarLayout: AppBarLayout = findViewById(R.id.appBarLayout)
-        val reviewScrollView = findViewById<NestedScrollView>(R.id.reviewScroll)
-        val reviewContainer = findViewById<LinearLayout>(R.id.reviewContainer)
+        reviewScrollView = findViewById(R.id.reviewScroll)
+        reviewContainer = findViewById(R.id.reviewContainer)
         appBarLayout.setExpanded(true)
         reviewScrollView.scrollTo(0, 0)
         val childCount = reviewContainer.childCount
@@ -444,7 +449,7 @@ class SearchActivity : AppCompatActivity() {
             reviewContainer.removeAllViews()
         }
         for (i in 1..10) {
-            createReview(i, reviewContainer)
+            createReview(i)
         }
         reviewScrollView.setOnScrollChangeListener(NestedScrollView.OnScrollChangeListener { _, _, scrollY, _, _ ->
             val isAtBottom = scrollY == (reviewScrollView.getChildAt(0).measuredHeight - reviewScrollView.measuredHeight)
@@ -454,7 +459,7 @@ class SearchActivity : AppCompatActivity() {
                 // 하단 끝에 도달했을 때의 처리
                 isScroll = false
                 showLoading(reviewContainer)
-                fetchReviewData(reviewContainer)
+                fetchReviewData()
             } else if (isAtTop) {
                 // 상단 끝에 도달했을 때의 처리
                 showToast("At Top")
@@ -462,7 +467,7 @@ class SearchActivity : AppCompatActivity() {
         })
     }
 
-    private fun fetchReviewData(linearLayout: LinearLayout) {
+    private fun fetchReviewData() {
         isLoading = true
         GlobalScope.launch(Dispatchers.Main) {
             // HTTP 요청을 보내고 응답을 받아오는 작업
@@ -475,22 +480,27 @@ class SearchActivity : AppCompatActivity() {
 
             // 응답 데이터를 기반으로 CardView 생성 및 추가 작업
             for (i in 1..10) {
-                createReview(i, linearLayout)
+                createReview(i)
             }
-            hideLoading(linearLayout)
+            hideLoading(reviewContainer)
             isScroll = true
             currentReviewPage++
             isLoading = false
         }
     }
 
-    private fun createReview(data: Int, linearLayout: LinearLayout) {
+    private fun createReview(data: Int){
         val cardViewLayout = LayoutInflater.from(this).inflate(R.layout.review_cardview, null) as MaterialCardView // 원하는 레이아웃의 ID를 지정
         val cardLayoutParams = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 250)
         cardLayoutParams.setMargins(10)
         cardViewLayout.layoutParams = cardLayoutParams
-        cardViewLayout.setOnClickListener { showReviewLayout() }
-        linearLayout.addView(cardViewLayout)
+        cardViewLayout.setOnClickListener {
+            disableReviews()
+            showReviewLayout()
+        }
+        reviewContainer.addView(cardViewLayout)
+
+        cardViewList.add(cardViewLayout)
     }
     override fun onBackPressed() {
         if (reviewCreate) {
@@ -511,8 +521,7 @@ class SearchActivity : AppCompatActivity() {
         val internalArea = findViewById<ConstraintLayout>(R.id.internalArea)
         internalArea.isSoundEffectsEnabled = false
         externalArea.setOnClickListener {
-            containerReview.removeView(overlayViewReview)
-            reviewCreate= false
+            removeReviewLayout()
             externalArea.setOnClickListener{
                 container.removeView(overlayView)
                 storeCreate = false
@@ -524,7 +533,24 @@ class SearchActivity : AppCompatActivity() {
     private fun removeReviewLayout() {
         // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
         reviewCreate= false
+        enableReviews()
         containerReview.removeView(overlayViewReview)
         currentReviewPage = 1
+    }
+
+    private fun enableReviews() {
+        var countTest = 0
+        for (cardView in cardViewList) {
+            cardView.isEnabled = true
+            Log.i("countEnable", (countTest++).toString())
+        }
+    }
+
+    private fun disableReviews() {
+        var countTest = 0
+        for (cardView in cardViewList) {
+            cardView.isEnabled = false
+            Log.i("countDisable", (countTest++).toString())
+        }
     }
 }

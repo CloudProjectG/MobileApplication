@@ -28,6 +28,7 @@ import android.animation.ValueAnimator
 import android.widget.Button
 import android.widget.EditText
 import android.view.animation.AnimationUtils
+import androidx.constraintlayout.widget.ConstraintLayout
 
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.CoroutineScope
@@ -59,10 +60,14 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchCafe: ImageButton
     private lateinit var searchDessert: ImageButton
     private lateinit var reviewButton: Button
+    private lateinit var menuFinishButton: ImageButton
+    private lateinit var menuExitButton: ImageButton
+    private lateinit var myReviewButton: Button
     private var waitFlag:Boolean = false
     private var backFlag:Boolean = false
     private var isMenuVisible = false
     private var numCardView:Int = 0
+    private var token:Int? = null
     private var imageButtonList:MutableList<ImageButton> = mutableListOf()
 
     val darkColorFilter = PorterDuffColorFilter(Color.parseColor("#80000000"), PorterDuff.Mode.SRC_ATOP)
@@ -93,6 +98,10 @@ class MainActivity : AppCompatActivity() {
         searchBar = findViewById(R.id.imageButton11)
         searchCafe = findViewById(R.id.imageButton12)
         searchDessert = findViewById(R.id.imageButton13)
+
+        menuExitButton = findViewById(R.id.menuExitButton)
+        menuFinishButton = findViewById(R.id.menuFinishButton)
+        myReviewButton = findViewById(R.id.myReviewButton)
 
         reviewButton = findViewById(R.id.reviewButton)
 
@@ -160,6 +169,23 @@ class MainActivity : AppCompatActivity() {
         searchCafe.setOnClickListener(onClickListener)
         searchDessert.setOnClickListener(onClickListener)
 
+        menuExitButton.setOnClickListener{
+            hideMenu(menuLayout)
+            enableObj()
+        }
+
+        menuFinishButton.setOnClickListener {
+            hideMenu(menuLayout)
+            backFlag = true
+            showOverlayLayout()
+        }
+
+        myReviewButton.setOnClickListener {
+            val intent = Intent(this, ReviewActivity::class.java)
+            intent.putExtra("USER_TOKEN", token)
+            startActivity(intent)
+        }
+
         for (i in 1..10) {
             val imageName = String.format("food_%02d", i)
             addCardView(imageName,numCardView++)
@@ -210,6 +236,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun showMenu(menuLayout: View) {
         val animation = AnimationUtils.loadAnimation(this, R.anim.slide_in_right)
+        val menuExternalLayout = findViewById<ConstraintLayout>(R.id.menuExternalLayout)
+        val menuInternalLayout = findViewById<ConstraintLayout>(R.id.menuInternalLayout)
+        menuExternalLayout.setOnClickListener{
+            hideMenu(menuLayout)
+            enableObj()
+        }
+        menuInternalLayout.setOnClickListener {
+
+        }
         menuLayout.startAnimation(animation)
         menuLayout.visibility = View.VISIBLE
         isMenuVisible = true
