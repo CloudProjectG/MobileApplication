@@ -37,6 +37,43 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.delay
 
 import com.google.android.material.card.MaterialCardView
+import retrofit2.Call
+import retrofit2.http.GET
+import retrofit2.http.Header
+import retrofit2.http.Query
+import java.util.UUID
+
+interface ApiServiceRecentReviewRequest {
+    @GET("/review/recent")
+    fun getData(
+        @Header("accessToken") accessToken: String,
+        @Query("page") page: Int,
+        @Query("row") row: Int): Call<RecentReviewResponse>
+}
+
+data class RecentReviewResponse(
+    val row: Int,
+    val page: Int,
+    val pageInfo: PageInfo,
+    val reviews: List<RecentReview>
+)
+data class RecentReview(
+    val storeId: Long,
+    val storeName: String,
+    val grade: Byte,
+    val image: UUID,
+    val menu: String,
+    val comment: String,
+    val hashtags: List<Int>
+)
+
+data class PageInfo(
+    val page: Int,
+    val row: Int,
+    val elements: Int,
+    val totalElements: Int,
+    val totalPages: Int
+)
 
 class MainActivity : AppCompatActivity() {
     private lateinit var horizontalScrollView: HorizontalScrollView
@@ -59,7 +96,6 @@ class MainActivity : AppCompatActivity() {
     private lateinit var searchBar: ImageButton
     private lateinit var searchCafe: ImageButton
     private lateinit var searchDessert: ImageButton
-    private lateinit var reviewButton: Button
     private lateinit var menuFinishButton: ImageButton
     private lateinit var menuExitButton: ImageButton
     private lateinit var myReviewButton: Button
@@ -67,7 +103,7 @@ class MainActivity : AppCompatActivity() {
     private var backFlag:Boolean = false
     private var isMenuVisible = false
     private var numCardView:Int = 0
-    private var token:Int? = null
+    private var token:String? = null
     private var imageButtonList:MutableList<ImageButton> = mutableListOf()
 
     val darkColorFilter = PorterDuffColorFilter(Color.parseColor("#80000000"), PorterDuff.Mode.SRC_ATOP)
@@ -102,8 +138,6 @@ class MainActivity : AppCompatActivity() {
         menuExitButton = findViewById(R.id.menuExitButton)
         menuFinishButton = findViewById(R.id.menuFinishButton)
         myReviewButton = findViewById(R.id.myReviewButton)
-
-        reviewButton = findViewById(R.id.reviewButton)
 
         val onClickListener = View.OnClickListener { view ->
             var userInput: String = ""
@@ -182,7 +216,8 @@ class MainActivity : AppCompatActivity() {
 
         myReviewButton.setOnClickListener {
             val intent = Intent(this, ReviewActivity::class.java)
-            intent.putExtra("USER_TOKEN", token)
+            val accessToken = token?: ""
+            intent.putExtra("USER_TOKEN", accessToken)
             startActivity(intent)
         }
 
@@ -266,7 +301,6 @@ class MainActivity : AppCompatActivity() {
             val imageButton = findViewById<ImageButton>(buttonId)
             imageButton.isEnabled = false
         }
-        findViewById<Button>(R.id.reviewButton).isEnabled = false
         findViewById<EditText>(R.id.searchEditText).isEnabled = false
         val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
         horizontalScrollView.setOnTouchListener { _, _ -> true }
@@ -281,7 +315,6 @@ class MainActivity : AppCompatActivity() {
             val imageButton = findViewById<ImageButton>(buttonId)
             imageButton.isEnabled = true
         }
-        findViewById<Button>(R.id.reviewButton).isEnabled = true
         findViewById<EditText>(R.id.searchEditText).isEnabled = true
         val horizontalScrollView = findViewById<HorizontalScrollView>(R.id.horizontalScrollView)
         horizontalScrollView.setOnTouchListener(null)

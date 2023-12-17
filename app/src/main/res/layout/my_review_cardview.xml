@@ -48,18 +48,8 @@
                     app:layout_constraintStart_toEndOf="@id/storeName"
                     android:text="@string/foodName" />
 
-                <TextView
-                    android:id="@+id/hashTag"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_marginStart="10dp"
-                    app:layout_constraintHeight_percent="0.5"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/star4"
-                    android:text="@string/hashTag"/>
-
                 <ImageView
-                    android:id="@+id/star0"
+                    android:id="@+id/grade0"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/star_filled_2"
@@ -68,40 +58,40 @@
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
                 <ImageView
-                    android:id="@+id/star1"
+                    android:id="@+id/grade1"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/star_filled_2"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintStart_toEndOf="@id/star0"
+                    app:layout_constraintStart_toEndOf="@id/grade0"
                     app:layout_constraintBottom_toBottomOf="parent"/>
                 <ImageView
-                    android:id="@+id/star2"
+                    android:id="@+id/grade2"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/star_filled_2"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintStart_toEndOf="@id/star1"
+                    app:layout_constraintStart_toEndOf="@id/grade1"
                     app:layout_constraintBottom_toBottomOf="parent"/>
                 <ImageView
-                    android:id="@+id/star3"
+                    android:id="@+id/grade3"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/star_filled_2"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintStart_toEndOf="@id/star2"
+                    app:layout_constraintStart_toEndOf="@id/grade2"
                     app:layout_constraintBottom_toBottomOf="parent"/>
                 <ImageView
-                    android:id="@+id/star4"
+                    android:id="@+id/grade4"
                     android:layout_width="0dp"
                     android:layout_height="0dp"
                     android:src="@drawable/star_filled_2"
                     app:layout_constraintHeight_percent="0.5"
                     app:layout_constraintDimensionRatio="1:1"
-                    app:layout_constraintStart_toEndOf="@id/star3"
+                    app:layout_constraintStart_toEndOf="@id/grade3"
                     app:layout_constraintBottom_toBottomOf="parent"/>
             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -112,12 +102,40 @@
                 android:layout_marginStart="10dp"
                 android:layout_marginEnd="10dp"
                 android:layout_marginBottom="10dp">
-
+                <TextView
+                    android:id="@+id/hashTag0"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    android:text="@string/hashTag"/>
+                <TextView
+                    android:id="@+id/hashTag1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintHeight_percent="0.5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/hashTag0"
+                    android:text="@string/hashTag"/>
+                <TextView
+                    android:id="@+id/hashTag2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintHeight_percent="0.5"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/hashTag1"
+                    android:text="@string/hashTag"/>
 
                 <TextView
                     android:id="@+id/comment"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
+                    app:layout_constraintHeight_percent="0.5"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     android:text="@string/comment" />
             </androidx.constraintlayout.widget.ConstraintLayout>
         </LinearLayout>

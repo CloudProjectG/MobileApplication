@@ -1,15 +1,23 @@
 package com.example.cloudprojectmobileapplication
 
+import android.app.Activity
+import android.app.Dialog
 import android.content.Intent
+import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
+import android.graphics.BitmapFactory
 import android.os.Bundle
+import android.provider.ContactsContract.CommonDataKinds.Nickname
 import android.util.Log
 import android.view.View
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.FrameLayout
+import android.widget.HorizontalScrollView
 import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.LinearLayout
@@ -39,10 +47,65 @@ import retrofit2.http.GET
 import retrofit2.http.Path
 import retrofit2.Response
 
+import androidx.activity.result.ActivityResult
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
+import retrofit2.Call
+import retrofit2.http.Header
+import retrofit2.http.Query
+import java.util.UUID
+
+
 interface ApiService {
     @GET("/api/data")
     suspend fun fetchData(): Response<String>
 }
+
+interface ApiServiceStoreReviewRequest {
+    @GET("/review/recent")
+    fun getData(
+        @Header("storeId") storeId: Long,
+        @Query("page") page: Int,
+        @Query("row") row: Int): Call<StoreReviewResponse>
+}
+
+interface ApiServiceStoreSearchTextRequest {
+    @GET("/store/search/text")
+    fun getData(
+        @Header("searchWord") searchWord: String,
+        @Query("page") page: Int,
+        @Query("row") row: Int): Call<StoreReviewResponse>
+}
+
+interface ApiServiceStoreSearchCategoryRequest {
+    @GET("/store/search/category")
+    fun getData(
+        @Header("category") category: Int,
+        @Query("page") page: Int,
+        @Query("row") row: Int): Call<StoreReviewResponse>
+}
+interface ApiServiceStoreSearchHashTagRequest {
+    @GET("/store/search/hashtag")
+    fun getData(
+        @Header("hashtagId") hashtagId: Long,
+        @Query("page") page: Int,
+        @Query("row") row: Int): Call<StoreReviewResponse>
+}
+data class StoreReviewResponse(
+    val row: Int,
+    val page: Int,
+    val pageInfo: PageInfo,
+    val reviews: List<StoreReview>
+)
+data class StoreReview(
+    val grade: Byte,
+    val image: UUID,
+    val menu: String,
+    val comment: String,
+    val nickname: String,
+    val hashtags: List<Int>
+)
+
 class SearchActivity : AppCompatActivity() {
     private lateinit var searchNestedScrollView: NestedScrollView
     private lateinit var searchLinearLayout: LinearLayout
@@ -74,6 +137,9 @@ class SearchActivity : AppCompatActivity() {
 
     private lateinit var containerReview: FrameLayout
     private lateinit var overlayViewReview: View
+    private lateinit var overlayViewReviewPost: View
+
+    private lateinit var reviewButton: Button
 
     private lateinit var retrofit: Retrofit
     private lateinit var apiService: ApiService
@@ -85,16 +151,28 @@ class SearchActivity : AppCompatActivity() {
 
     private var storeCreate = false
     private var reviewCreate = false
+    private var postCreate = false
     private var cardViewList:MutableList<MaterialCardView> = mutableListOf()
+    private val checkBoxList:MutableList<CheckBox> = mutableListOf()
+
+    private lateinit var uploadImageLinearLayout: LinearLayout
+    private lateinit var uploadImageHorizontalScrollView: HorizontalScrollView
+
+    private lateinit var takePhotoLauncher: ActivityResultLauncher<Intent>
+    private lateinit var chooseFromGalleryLauncher: ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_search)
+
+        initializeLaunchers()
 
         inflater = LayoutInflater.from(this)
         overlayView = inflater.inflate(R.layout.layout_store, null)
         container = findViewById(R.id.mainFrameLayout)
 
         overlayViewReview = inflater.inflate(R.layout.layout_review, null)
+        overlayViewReviewPost = inflater.inflate(R.layout.layout_review_post, null)
 
         val receivedData = intent.getStringExtra("USER_INPUT")
         val receivedRootURL = intent.getStringExtra("ROOT_URL")
@@ -418,6 +496,7 @@ class SearchActivity : AppCompatActivity() {
         // LayoutInflater를 사용하여 activity_end.xml을 인플레이트
         storeCreate = true
         container.addView(overlayView)
+        reviewButton = findViewById(R.id.reviewButton)
         containerReview = findViewById(R.id.infoFrameLayout)
 
         val externalArea = findViewById<ConstraintLayout>(R.id.externalArea)
@@ -429,6 +508,7 @@ class SearchActivity : AppCompatActivity() {
         }
         internalArea.setOnClickListener {
         }
+
         createReviewContainer()
     }
     private fun removeOverlayLayout() {
@@ -440,6 +520,7 @@ class SearchActivity : AppCompatActivity() {
     }
 
     private fun createReviewContainer() {
+        appBarLayout = findViewById(R.id.appBarLayout)
         reviewScrollView = findViewById(R.id.reviewScroll)
         reviewContainer = findViewById(R.id.reviewContainer)
         appBarLayout.setExpanded(true)
@@ -465,6 +546,10 @@ class SearchActivity : AppCompatActivity() {
                 showToast("At Top")
             }
         })
+
+        reviewButton.setOnClickListener{
+            showPostLayout()
+        }
     }
 
     private fun fetchReviewData() {
@@ -503,8 +588,20 @@ class SearchActivity : AppCompatActivity() {
         cardViewList.add(cardViewLayout)
     }
     override fun onBackPressed() {
-        if (reviewCreate) {
+        val externalArea = findViewById<ConstraintLayout>(R.id.externalArea)
+        if (postCreate) {
+            removePostLayout()
+            externalArea.setOnClickListener {
+                container.removeView(overlayView)
+                storeCreate = false
+            }
+        }
+        else if (reviewCreate) {
             removeReviewLayout()
+            externalArea.setOnClickListener {
+                container.removeView(overlayView)
+                storeCreate = false
+            }
         }
         else if (storeCreate) {
             removeOverlayLayout()
@@ -542,15 +639,237 @@ class SearchActivity : AppCompatActivity() {
         var countTest = 0
         for (cardView in cardViewList) {
             cardView.isEnabled = true
-            Log.i("countEnable", (countTest++).toString())
         }
+        reviewButton.isEnabled = true
     }
 
     private fun disableReviews() {
         var countTest = 0
         for (cardView in cardViewList) {
             cardView.isEnabled = false
-            Log.i("countDisable", (countTest++).toString())
         }
+        reviewButton.isEnabled = false
+    }
+
+    private fun showPostLayout() {
+        val externalArea = findViewById<ConstraintLayout>(R.id.externalArea)
+        postCreate = true
+        disableReviews()
+        container.addView(overlayViewReviewPost)
+
+        val reviewStoreName = findViewById<TextView>(R.id.reviewStoreName)
+        //reviewStoreName.text = storeName
+        val checkBox1 = findViewById<CheckBox>(R.id.checkBox1)
+        val checkBox2 = findViewById<CheckBox>(R.id.checkBox2)
+        val checkBox3 = findViewById<CheckBox>(R.id.checkBox3)
+        val checkBox4 = findViewById<CheckBox>(R.id.checkBox4)
+        val checkBox5 = findViewById<CheckBox>(R.id.checkBox5)
+        val checkBox6 = findViewById<CheckBox>(R.id.checkBox6)
+        val checkBox7 = findViewById<CheckBox>(R.id.checkBox7)
+        val checkBox8 = findViewById<CheckBox>(R.id.checkBox8)
+        val checkBox9 = findViewById<CheckBox>(R.id.checkBox9)
+        val checkBox10 = findViewById<CheckBox>(R.id.checkBox10)
+        val checkBox11 = findViewById<CheckBox>(R.id.checkBox11)
+        checkBoxList.add(checkBox1)
+        checkBoxList.add(checkBox2)
+        checkBoxList.add(checkBox3)
+        checkBoxList.add(checkBox4)
+        checkBoxList.add(checkBox5)
+        checkBoxList.add(checkBox6)
+        checkBoxList.add(checkBox7)
+        checkBoxList.add(checkBox8)
+        checkBoxList.add(checkBox9)
+        checkBoxList.add(checkBox10)
+        checkBoxList.add(checkBox11)
+        for (checkBox in checkBoxList){
+            checkBox.setOnClickListener {updateCheckBoxStates(checkBox, checkBox.isChecked)}
+        }
+        val grade0 = findViewById<ImageButton>(R.id.reviewGrade0)
+        val grade1 = findViewById<ImageButton>(R.id.reviewGrade1)
+        val grade2 = findViewById<ImageButton>(R.id.reviewGrade2)
+        val grade3 = findViewById<ImageButton>(R.id.reviewGrade3)
+        val grade4 = findViewById<ImageButton>(R.id.reviewGrade4)
+        val imageUploadCameraButton = findViewById<Button>(R.id.imageUploadCameraButton)
+        val imageUploadGalleryButton = findViewById<Button>(R.id.imageUploadGalleryButton)
+        uploadImageHorizontalScrollView = findViewById(R.id.uploadImageHorizontalScrollView)
+        uploadImageLinearLayout = findViewById(R.id.uploadImageLinearLayout)
+        val postEditText = findViewById<EditText>(R.id.postEditText)
+        val postButton = findViewById<Button>(R.id.postButton)
+        val cancelButton = findViewById<Button>(R.id.cancelButton)
+
+        imageUploadCameraButton.setOnClickListener {
+            takePhoto()
+        }
+
+        imageUploadGalleryButton.setOnClickListener {
+            chooseFromGallery()
+        }
+
+
+        cancelButton.setOnClickListener {
+            removePostLayout()
+            externalArea.setOnClickListener {
+                container.removeView(overlayView)
+                storeCreate = false
+            }
+            checkBoxList.clear()
+        }
+
+        val starFilled: Drawable = resources.getDrawable(R.drawable.star_filled_2, null)
+        val starHollow: Drawable = resources.getDrawable(R.drawable.star_hollow_3, null)
+
+        var gradeZeroFlag = true
+
+        grade0.setOnClickListener {
+            if (gradeZeroFlag) {
+                grade0.setImageDrawable(starFilled)
+                gradeZeroFlag = false
+            } else{
+                grade0.setImageDrawable(starHollow)
+                gradeZeroFlag = true
+            }
+            grade1.setImageDrawable(starHollow)
+            grade2.setImageDrawable(starHollow)
+            grade3.setImageDrawable(starHollow)
+            grade4.setImageDrawable(starHollow)
+        }
+        grade1.setOnClickListener {
+            gradeZeroFlag = true
+            grade0.setImageDrawable(starFilled)
+            grade1.setImageDrawable(starFilled)
+            grade2.setImageDrawable(starHollow)
+            grade3.setImageDrawable(starHollow)
+            grade4.setImageDrawable(starHollow)
+        }
+        grade2.setOnClickListener {
+            gradeZeroFlag = true
+            grade0.setImageDrawable(starFilled)
+            grade1.setImageDrawable(starFilled)
+            grade2.setImageDrawable(starFilled)
+            grade3.setImageDrawable(starHollow)
+            grade4.setImageDrawable(starHollow)
+        }
+        grade3.setOnClickListener {
+            gradeZeroFlag = true
+            grade0.setImageDrawable(starFilled)
+            grade1.setImageDrawable(starFilled)
+            grade2.setImageDrawable(starFilled)
+            grade3.setImageDrawable(starFilled)
+            grade4.setImageDrawable(starHollow)
+        }
+        grade4.setOnClickListener {
+            gradeZeroFlag = true
+            grade0.setImageDrawable(starFilled)
+            grade1.setImageDrawable(starFilled)
+            grade2.setImageDrawable(starFilled)
+            grade3.setImageDrawable(starFilled)
+            grade4.setImageDrawable(starFilled)
+        }
+
+        externalArea.setOnClickListener {
+        }
+    }
+
+    private fun removePostLayout() {
+        container.removeView(overlayViewReviewPost)
+        enableReviews()
+        postCreate = false
+    }
+
+    private fun updateCheckBoxStates(clickedCheckBox: CheckBox, isChecked: Boolean) {
+        val checkedCount = checkBoxList.count { it.isChecked }
+
+        if (isChecked && checkedCount > 3) {
+            // 3개 이상 체크된 경우, 사용자에게 메시지 표시
+            Toast.makeText(this, "3개 초과 체크할 수 없습니다.", Toast.LENGTH_SHORT).show()
+
+            // 클릭된 CheckBox를 다시 체크 해제
+            clickedCheckBox.isChecked = false
+        }
+    }
+
+    private fun checkCheckBoxStates(): Boolean {
+        val checkedCount = checkBoxList.count { it.isChecked }
+
+        if (checkedCount == 3) {
+            return true
+        }
+        return false
+    }
+
+    private fun initializeLaunchers() {
+        takePhotoLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            handleActivityResult(result, CAMERA_REQUEST_CODE)
+        }
+
+        chooseFromGalleryLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+            handleActivityResult(result, GALLERY_REQUEST_CODE)
+        }
+    }
+
+    private fun takePhoto() {
+        val cameraIntent = Intent(android.provider.MediaStore.ACTION_IMAGE_CAPTURE)
+        takePhotoLauncher.launch(cameraIntent)
+    }
+
+    private fun chooseFromGallery() {
+        val galleryIntent = Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+        chooseFromGalleryLauncher.launch(galleryIntent)
+    }
+
+    private fun handleActivityResult(result: ActivityResult, requestCode: Int) {
+        if (result.resultCode == RESULT_OK) {
+            val data = result.data
+            when (requestCode) {
+                CAMERA_REQUEST_CODE -> {
+                    val imageBitmap = data?.extras?.get("data") as? Bitmap
+                    addImageToScrollView(imageBitmap)
+                }
+                GALLERY_REQUEST_CODE -> {
+                    val selectedImageUri = data?.data
+                    val imageStream = contentResolver.openInputStream(selectedImageUri!!)
+                    val imageBitmap = BitmapFactory.decodeStream(imageStream)
+                    addImageToScrollView(imageBitmap)
+                }
+            }
+        }
+    }
+
+    private fun addImageToScrollView(imageBitmap: Bitmap?) {
+        imageBitmap?.let {
+            val imageButton = ImageButton(this)
+            imageButton.setImageBitmap(imageBitmap)
+            setEnlargeImageClickListener(imageButton, imageBitmap)
+
+            val layoutParams = LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.MATCH_PARENT
+            )
+            imageButton.scaleType = ImageView.ScaleType.FIT_XY
+            layoutParams.setMargins(5,0,5,0)
+
+            uploadImageLinearLayout.addView(imageButton, layoutParams)
+        }
+    }
+    private fun setEnlargeImageClickListener(imageButton: ImageButton, imageBitmap: Bitmap) {
+        imageButton.setOnClickListener {
+            showImageDialog(imageBitmap)
+        }
+    }
+
+    private fun showImageDialog(imageBitmap: Bitmap) {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.dialog_image_enlarged)
+
+        val enlargedImageView: ImageView = dialog.findViewById(R.id.enlargedImageView)
+        enlargedImageView.setImageBitmap(imageBitmap)
+
+        dialog.show()
+    }
+
+
+    companion object {
+        private const val CAMERA_REQUEST_CODE = 101
+        private const val GALLERY_REQUEST_CODE = 102
     }
 }

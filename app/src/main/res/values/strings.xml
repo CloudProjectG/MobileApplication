@@ -30,4 +30,14 @@
     <string name="foodName">음식 이름</string>
     <string name="comment">리뷰 내용</string>
     <string name="hashTag">해쉬 태그</string>
+    <string name="reviewHint">리뷰를 작성해주세요</string>
+    <string name="searchStoreEditText">리뷰를 작성할 식당은?</string>
+    <string name="search">검색</string>
+    <string name="storeNameReview">Store : </string>
+    <string name="hashTagReview">해쉬 태그 : </string>
+    <string name="reviewStore">가게명</string>
+    <string name="hashTag0">HashTag#1</string>
+    <string name="hashTag1">HashTag#2</string>
+    <string name="hashTag2">HashTag#3</string>
+    <string name="grade">만족도 : </string>
 </resources>
